@@ -102,23 +102,16 @@ echo '
               if (xhr.status != 200) {
                   alert(`Error ${xhr.status}: ${xhr.statusText}`);
               } else {
-                if(xhr.response!=="Registration successful") {
-                  document.getElementById("error").innerHTML = `${xhr.response}`;
-                  document.getElementById("error").classList.remove("d-none");
-                    document.getElementById("error").classList.add("d-block");
-                }
-                else { 
-                  document.getElementById("form").classList.toggle("d-none");
-                  document.getElementById("error").classList.remove("d-block");
-                  document.getElementById("error").classList.add("d-none");
-                  document.getElementById("succes").classList.remove("d-none");
-                  document.getElementById("sign").classList.add("d-none");
-                  document.getElementById("succes").classList.add("d-block");
-                }
-                
-                
-                
-                
+                const errorElement = document.getElementById("error");
+                const formElement = document.getElementById("form");
+                const successElement = document.getElementById("succes");
+                const signElement = document.getElementById("sign");
+        
+                errorElement.innerHTML = xhr.response;
+                errorElement.classList.toggle("d-none", xhr.response === "Registration successful");
+                formElement.classList.toggle("d-none", xhr.response === "Registration successful");
+                successElement.classList.toggle("d-none", xhr.response !== "Registration successful");
+                signElement.classList.toggle("d-none", xhr.response !== "Registration successful");
               }
           };
       });
